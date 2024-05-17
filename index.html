@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APK Downloader</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+/* made by @Dexta777_Bot copyright */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  text-align: center;
+  position: relative;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.3); /* dexta777 */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: slideIn 2s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+h1 {
+  text-align: center;
+  color: #007bff;
+}
+
+form {
+  margin-bottom: 20px;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.label-container {
+  position: relative;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container input[type="text"],
+.select-container select {
+  width: calc(100% - 40px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #007bff; 
+  border-radius: 25px; 
+  outline: none; 
+  transition: border-color 0.3s;
+  margin-top: 10px;
+}
+
+.input-container input[type="text"]:focus,
+.select-container select:focus {
+  border-color: #0056b3; 
+}
+
+.clear-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0; 
+  transition: opacity 0.3s ease; 
+}
+
+.input-container:hover .clear-icon {
+  opacity: 1; 
+}
+
+button {
+  position: relative;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 25px; 
+  cursor: pointer;
+  animation: slideInRight 0.5s ease forwards;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+}
+
+.loading {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  width: 50px;
+  height: 50px;
+  background: url('https://dexta7.github.io/Apk/ZKZg.gif') center center no-repeat;
+  background-size: cover;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+#downloadLink {
+  text-align: center;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+#downloadLink a {
+  display: none;
+  padding: 15px 30px;
+  background-color: #28a745;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 25px; 
+  animation: slideInUp 0.5s ease forwards;
+}
+
+#downloadLink a:hover {
+  background-color: #218838;
+}
+
+.copyLink {
+  display: none;
+  text-align: center;
+  color: #007bff;
+  cursor: pointer;
+  animation: fadeIn 0.5s ease forwards;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.copyLink:hover {
+  text-decoration: underline;
+}
+
+.support-text {
+  color: red;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  background-color: #333;
+  color: #fff;
+  font-size: 14px;
+  animation: colorChange 5s infinite alternate;
+}
+
+@keyframes colorChange {
+  0% {
+    color: yellow;
+  }
+  50% {
+    color: red;
+  }
+  100% {
+    color: yellow;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.button-animation {
+  animation: pulse 1s infinite; 
+}
+
+.blue-text {
+  color: #007bff; 
+  margin-top: 10px; 
+  font-size: 14px; 
+}
+
+.blue-text:hover {
+  text-decoration: underline; 
+  cursor: pointer; 
+}
+
+/* dexta */
+.error-border {
+  border-color: #dc3545 !important; 
+}
+
+/* dexta */
+.error-message {
+  color: #dc3545; 
+  font-size: 12px; 
+  margin-top: 3px;
+  font-weight: bold
+}
+
+.label-container {
+  position: relative;
+  margin-top: 10px; /* dexta777 */
+  font-weight: bold;
+}
+
+.select-container {
+  position: relative;
+  margin-top: 5px; /* dexta */
+  font-weight: bold;
+}
+
+/* dexta */
+/* 777 */
+button.generate-button {
+  transition: transform 0.3s;
+}
+button.generate-button:hover {
+  transform: scale(1.1);
+}
+
+/* dexta */
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+}
+
+/* dexta */
+body {
+  background-image: url('https://dexta7.github.io/Apk/background7.jpg');
+  background-size: cover;
+}
+
+/* dexta */
+h1, button {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* dexta */
+header, footer {
+  animation: fadeIn 2s;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* dexta */
+.label-container, .input-container, .select-container {
+  animation: slideInLeft 2s forwards;
+}
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>APK Downloader</h1>
+    <form id="downloadForm">
+        <div class="label-container">
+            <label for="playStoreLink" class="input-label">Enter Google Play Store Link:</label>
+        </div>
+        <div class="input-container">
+            <input type="text" id="playStoreLink" name="playStoreLink" oninput="validateInput()">
+            <span class="clear-icon" onclick="clearInput()"><i class="fas fa-times"></i></span>
+        </div>
+        <div id="errorPlayStoreLink" class="error-message"></div>
+        <div class="label-container">
+            <label for="useVPN" class="input-label">Do you use VPN?</label>
+        </div>
+        <div class="select-container">
+            <select id="useVPN" name="useVPN" onchange="removeError()">
+                <option value="" disabled selected>Not Selected</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+            <div id="errorUseVPN" class="error-message"></div>
+        </div>
+        <button type="button" class="button-animation generate-button" onclick="checkAndGenerate()">Generate Download Link</button>
+        <div class="loading" id="loading"></div>
+    </form>
+    <div id="downloadLink"></div>
+    <a href="https://dexta7.github.io/Apk/help.html" class="blue-text" id="helpLink" target="_blank">Help</a>
+    <div class="copyLink" id="copyLink" onclick="copyDownloadLink()">Copy Download Link</div>
+</div>
+<div class="footer">♡ Made By Dexta 7 7 7 ♡<br><a href="https://t.me/Dexta777_Bot" target="_blank" class="support-text">Support</a></div>
+
+<script>
+function checkAndGenerate() {
+    var playStoreLink = document.getElementById("playStoreLink").value;
+    var packageId = extractPackageId(playStoreLink);
+    var useVPN = document.getElementById("useVPN").value;
+
+    if (playStoreLink.startsWith("https://play.google.com/") && useVPN !== "") {
+        // Dexta777_Bot 
+        if (useVPN === "yes") {
+            // Dexta777_Bot 
+            alert("لطفا برای حفظ امنیت و افزایش سرعت دانلود بدون فیلترشکن وارد سایت بشید تا سایت به درستی کار و دانلود بکند.");
+        } else {
+            // Dexta777_Bot 
+            var apkLink = "https://d.apkpure.net/b/APK/" + packageId + "?version=latest";
+
+            // Dexta777_Bot 
+            document.getElementById("loading").style.display = "inline-block";
+
+            setTimeout(function() {
+                //Dexta777_Bot 
+                document.getElementById("loading").style.display = "none";
+
+                // Dexta777_Bot 
+                document.getElementById("downloadLink").innerHTML = '<a href="' + apkLink + '">Download APK</a>';
+                document.getElementById("downloadLink").getElementsByTagName("a")[0].style.display = "inline-block";
+
+                // Dexta777_Bot 
+                document.getElementById("copyLink").style.display = "block";
+
+                // Dexta777_Bot 
+                document.getElementById("helpLink").style.display = "none";
+
+                // Dexta777_Bot 
+                toggleDownloadButtonVisibility(true);
+            }, 5000);
+        }
+    } else {
+        // Dexta777_Bot 
+        if (useVPN === "") {
+            document.getElementById("useVPN").classList.add("error-border"); // Dexta777_Bot 
+            document.getElementById("errorUseVPN").innerHTML = "Please select if you use VPN."; // Made by Dexta777_Bot 
+        } else {
+            document.getElementById("playStoreLink").classList.add("error-border"); // no copy code :/
+            document.getElementById("errorPlayStoreLink").innerHTML = "Please enter a valid Google Play Store link."; // @Dexta777_Bot 
+        }
+    }
+}
+
+function extractPackageId(playStoreLink) {
+    var parts = playStoreLink.split("id=");
+    if (parts.length > 1) {
+        return parts[1];
+    } else {
+        return ""; 
+    }
+}
+
+function copyDownloadLink() {
+    var downloadLink = document.getElementById("downloadLink").getElementsByTagName("a")[0].href;
+
+    var tempInput = document.createElement("input");
+    tempInput.setAttribute("value", downloadLink);
+    document.body.appendChild(tempInput);
+
+    tempInput.select();
+
+    document.execCommand("copy");
+
+    document.body.removeChild(tempInput);
+
+    // f u * k
+    toggleDownloadButtonVisibility(false);
+}
+
+function clearInput() {
+    var input = document.getElementById("playStoreLink");
+    input.value = '';
+    toggleClearIcon(); 
+    // dexta
+    toggleDownloadButtonVisibility(false);
+}
+
+function toggleClearIcon() {
+    var input = document.getElementById("playStoreLink");
+    var clearIcon = input.nextElementSibling;
+
+    if (input.value.trim() !== '') {
+        clearIcon.style.display = "block";
+    } else {
+        clearIcon.style.display = "none";
+    }
+}
+
+function toggleDownloadButtonVisibility(showDownloadButton) {
+    var generateButton = document.querySelector('button.generate-button');
+    var downloadButton = document.getElementById('downloadLink').querySelector('a');
+    var copyButton = document.getElementById('copyLink');
+  
+    if (showDownloadButton) {
+        generateButton.style.display = 'none';
+        downloadButton.style.display = 'inline-block';
+        copyButton.style.display = 'block';
+    } else {
+        generateButton.style.display = 'inline-block';
+        downloadButton.style.display = 'none';
+        copyButton.style.display = 'none';
+    }
+}
+
+function removeError() {
+    document.getElementById("useVPN").classList.remove("error-border"); 
+    document.getElementById("errorUseVPN").innerHTML = ""; 
+}
+
+function validateInput() {
+    var playStoreLink = document.getElementById("playStoreLink").value;
+    if (playStoreLink.startsWith("https://play.google.com/")) {
+        document.getElementById("playStoreLink").classList.remove("error-border");
+        document.getElementById("errorPlayStoreLink").innerHTML = "";
+    } else {
+        document.getElementById("playStoreLink").classList.add("error-border");
+        document.getElementById("errorPlayStoreLink").innerHTML = "Please enter a valid Google Play Store link.";
+    }
+}
+</script>
+</body>
+</html>
